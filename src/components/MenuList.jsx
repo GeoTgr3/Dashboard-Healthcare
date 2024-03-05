@@ -1,15 +1,16 @@
-import { BookOutlined, CompassFilled, DatabaseOutlined, GoldenFilled, HomeOutlined, PushpinFilled, SoundOutlined } from '@ant-design/icons';
+import { CheckCircleTwoTone } from '@ant-design/icons';
 import { Menu } from 'antd';
-const MenuList = () => {
+
+const MenuList = ({ setShowDashboard ,setDashboardUrl }) => {
+
+
     return (
         <Menu theme='dark' mode="inline" className='menu-bar'>
-            <Menu.Item key="home" icon={<HomeOutlined />}>
-                Home
-            </Menu.Item>
 
 
 
-            <Menu.SubMenu key="IVS" icon={<DatabaseOutlined />} title="Indice de Vulnérabilité Sanitaire">
+
+            <Menu.SubMenu key="IVS" icon={<CheckCircleTwoTone />} title="Indice de Vulnérabilité Sanitaire">
                 <Menu.Item key="Objectif" >
                     Objectif
                 </Menu.Item>
@@ -26,7 +27,7 @@ const MenuList = () => {
 
 
 
-            <Menu.SubMenu key="expostion" icon={<BookOutlined />} title="Exposition">
+            <Menu.SubMenu key="expostion" icon={<CheckCircleTwoTone />} title="Exposition">
                 <Menu.Item key="Handicap" >
                     Handicap
                 </Menu.Item>
@@ -48,23 +49,21 @@ const MenuList = () => {
             </Menu.SubMenu>
 
 
-            <Menu.SubMenu key="sensibilite" icon={<PushpinFilled />} title="Sensibilité">
-                <Menu.Item key="Population" >
-                    Population
+            <Menu.SubMenu key="sensibilite" icon={<CheckCircleTwoTone />} title="Sensibilité">
+
+                <Menu.Item key="Population" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/51'); }}>
+                    Population/Densité
                 </Menu.Item>
-                <Menu.Item key="Densité" >
-                    Densité
-                </Menu.Item>
-                <Menu.Item key="IPM">
+                <Menu.Item key="IPM" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/73'); }}>
                     Indice de Pauvreté Multidimensionelle
                 </Menu.Item>
             </Menu.SubMenu>
 
 
 
-            <Menu.SubMenu key="CA" icon={<GoldenFilled />} title="Capacité d'Adaptation">
+            <Menu.SubMenu key="CA" icon={<CheckCircleTwoTone />} title="Capacité d'Adaptation">
                 <Menu.Item key="RSEEB" >
-                RSEEB
+                    RSEEB
                 </Menu.Item>
                 <Menu.Item key="RH" >
                     RH
@@ -73,7 +72,7 @@ const MenuList = () => {
                     RISUM
                 </Menu.Item>
                 <Menu.Item key="REMS" >
-                REMS
+                    REMS
                 </Menu.Item>
                 <Menu.Item key="SA" >
                     Structure d'appui
@@ -89,10 +88,10 @@ const MenuList = () => {
 
 
 
-            <Menu.SubMenu key="RS" icon={<CompassFilled />} title="Région Sanitaire">
+            <Menu.SubMenu key="RS" icon={<CheckCircleTwoTone />} title="Région Sanitaire">
 
             </Menu.SubMenu>
-            <Menu.SubMenu key="AS" icon={<SoundOutlined />} title="Alerte Saniatire">
+            <Menu.SubMenu key="AS" icon={<CheckCircleTwoTone />} title="Alerte Saniatire">
 
             </Menu.SubMenu>
         </Menu>
