@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 
 const MenuList = ({ setShowDashboard ,setDashboardUrl }) => {
 
-
+//
     return (
         <Menu theme='dark' mode="inline" className='menu-bar'>
 
@@ -19,8 +19,8 @@ const MenuList = ({ setShowDashboard ,setDashboardUrl }) => {
                 </Menu.Item>
                 <Menu.Item key="Methodologies">
                     Methodologies
-                </Menu.Item>
-                <Menu.Item key="Cartographie" >
+                </Menu.Item>                                                                           
+                <Menu.Item key="Cartographie" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/88'); }} >
                     Cartographie
                 </Menu.Item>
             </Menu.SubMenu>
@@ -28,10 +28,10 @@ const MenuList = ({ setShowDashboard ,setDashboardUrl }) => {
 
 
             <Menu.SubMenu key="expostion" icon={<CheckCircleTwoTone />} title="Exposition">
-                <Menu.Item key="Handicap" >
+                <Menu.Item key="Handicap" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/96'); }} >
                     Handicap
                 </Menu.Item>
-                <Menu.Item key="VEF" >
+                <Menu.Item key="VEF" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/106'); }} >
                     Violence a l'egard des femmes
                 </Menu.Item>
                 <Menu.Item key="VEE">
