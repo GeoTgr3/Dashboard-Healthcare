@@ -36,12 +36,13 @@
   white-space: normal !important;
 }
 
-.menu-bar{
-  height:88vh;
+.menu-bar {
+  height: 88vh;
+  width: auto;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 15px; 
+  gap: 15px;
   font-size: 1rem;
   position: relative;
 }

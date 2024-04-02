@@ -1,0 +1,29 @@
+.custom-trigger {
+  font-size: 1.25em;
+  color: #2c3e50;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #ecf0f1;
+  border-bottom: 1px solid #bdc3c7;
+}
+
+.custom-trigger-open {
+  color: #e74c3c;
+}
+
+.custom-content-outer {
+  padding: 10px;
+  border-bottom: 1px solid #7f8c8d;
+}
+
+.custom-content-inner {
+  padding: 10px;
+}
+
+.custom-content-outer.collapsible-content {
+  display: none;
+}
+
+.custom-content-outer.is-open {
+  display: block;
+}
