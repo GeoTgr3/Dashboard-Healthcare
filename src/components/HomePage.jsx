@@ -13,6 +13,8 @@ const HomePage = () => {
 
   return (
     <div className="home-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: `url(${Accueil}) no-repeat center/cover` }}>
+            <img src="src\assets\sante.png" alt="Logo" className="logo" />
+
       <div className="button-container">
         <Popup
           trigger={
@@ -520,18 +522,43 @@ VULNÉRABILITÉ SANITAIRE (IVS)" triggerClassName="custom-trigger" triggerOpened
 
 
 
-                <Collapsible trigger="APPLICATION ET DIFFUSION DE L&#39;INDICE DE
+                <Collapsible trigger="MÉTHODE D'AGRÉGATION POUR L'INDICE DE
 VULNÉRABILITÉ SANITAIRE (IVS)" triggerClassName="custom-trigger" triggerOpenedClassName="custom-trigger-open" contentOuterClassName="custom-content-outer" contentInnerClassName="custom-content-inner">
-                  <p>
-                    This is the content of section 2.
-                  </p>
+                  <h3>Choix de la méthode d'agrégation</h3>
+      <p>
+        Pour l'agrégation des indicateurs de l'IVS, deux principales méthodes peuvent être envisagées : l'agrégation linéaire et l'agrégation géométrique. Après une évaluation minutieuse, la méthode d'agrégation linéaire a été choisie pour sa simplicité, sa transparence et sa flexibilité, permettant de pondérer différemment les indicateurs selon leur importance relative dans la détermination de la vulnérabilité sanitaire. Chaque indicateur contribue à l'indice final proportionnellement à son importance, déterminée par un système de pondération.
+      </p>
+      <h3>Formule d'agrégation</h3>
+      <p>
+        L'IVS est calculé en utilisant la formule d'agrégation suivante :
+        IVS = [(PP * Exm) + (PP * Sp)] - (PP * Ca)
+      </p>
+      <p>
+        Où :
+        <ul>
+          <li>Exm : Exposition au maladies.</li>
+          <li>Sp : Sensibilité de la population.</li>
+          <li>Ca : Capacité d'adaptation.</li>
+          <li>PP : Poids de la pondération.</li>
+        </ul>
+        Cette formule comprend les trois composantes normalisées. Chaque composante est multipliée par son poids correspondant PP. Cette formulation implique que la capacité d'adaptation est soustraite de l'exposition et de la sensibilité. Cela suggère que la capacité d'adaptation peut atténuer l'impact de l'exposition et de la sensibilité sur la vulnérabilité sanitaire. On doit toujours s’assurer que la somme des poids PP est égale à 100 puisque nous utilisons des pourcentages pour que l'indice soit correctement normalisé.
+      </p>
+      <p>
+        Cette formule assure également que chaque indicateur contribue à l'IVS proportionnellement à son poids, permettant ainsi de refléter de manière équilibrée les différentes dimensions de la vulnérabilité sanitaire.
+      </p>
+      <h3>Validation des poids et de la méthode d'agrégation</h3>
+      <p>
+        Après la définition initiale des poids et l'application de la formule d'agrégation, une phase de validation a été mise en œuvre. Cette phase comprend des analyses de sensibilité pour évaluer l'impact des variations des poids sur les scores de l'IVS. De plus, une comparaison avec des indices et des données externes a été effectuée pour vérifier la cohérence et la crédibilité de l'IVS.
+      </p>
+      <h3>Ajustements et révisions</h3>
+      <p>
+        Sur la base des résultats de la validation, des ajustements ont été nécessaires pour affiner les poids des indicateurs. L'objectif est d'optimiser la représentation de la vulnérabilité sanitaire par l'IVS, en assurant que l'indice soit à la fois robuste et sensible aux variations significatives des conditions de vulnérabilité.
+      </p>
+      <p>
+        En suivant cette méthodologie d'agrégation, l'IVS vise à fournir un outil précis et fiable pour évaluer la vulnérabilité sanitaire, soutenant ainsi les efforts des décideurs et des professionnels de la santé dans l'identification des populations à risque et la mise en place de stratégies d'intervention efficaces.
+      </p>
                 </Collapsible>
-                <Collapsible trigger="APPLICATION ET DIFFUSION DE L&#39;INDICE DE
-VULNÉRABILITÉ SANITAIRE (IVS)" triggerClassName="custom-trigger" triggerOpenedClassName="custom-trigger-open" contentOuterClassName="custom-content-outer" contentInnerClassName="custom-content-inner">
-                  <p>
-                    This is the content of section 2.
-                  </p>
-                </Collapsible>
+                
 
 
 

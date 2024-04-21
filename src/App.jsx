@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Logo from './components/Logo';
+import MDO from './components/MDO';
+import MSS from './components/MSS';
 import MenuList from './components/MenuList';
-
 
 const { Header, Sider }=Layout;
 
@@ -18,6 +19,10 @@ function App() {
     <Router>
     <Routes>
       <Route path="/home" element={<HomePage />} />
+      <Route path="/" component={<HomePage />} />
+      <Route path="/mdo" element={<MDO />} />
+      <Route path="/mss" element={<MSS />} />
+
       <Route path="/app" element={
         <Layout>
           <Sider width={350} className="sidebar">

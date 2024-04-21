@@ -27,3 +27,15 @@
 .custom-content-outer.is-open {
   display: block;
 }
+
+.home-page {
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px; /* adjust as needed */
+  height: 150px; /* adjust as needed */
+}
