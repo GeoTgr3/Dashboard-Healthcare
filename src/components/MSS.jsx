@@ -1,316 +1,216 @@
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import React, { useEffect, useState } from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import React, { useEffect, useRef, useState } from 'react';
+import Updatemss from './Updatemss';
+
+const useStyles = makeStyles({
+  container: {
+    backgroundColor: '#1a237e',
+    padding: '20px',
+    color: 'white',
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: '10px',
+    color: 'white',
+    fontSize: '20px',
+    fontWeight: 'bold',
+  },
+  filter: {
+    backgroundColor: 'white',
+    borderRadius: '5px',
+  },
+  table: {
+    overflowX: 'auto',
+    maxHeight: '80vh', // Adjusted to ensure the table has a scrollable area
+    position: 'relative',
+  },
+  headerRow: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(18, 1fr)',
+    gap: '10px',
+    color: 'white',
+    marginBottom: '10px',
+    position: 'sticky',
+    top: 0,
+    backgroundColor: '#1a237e',
+    zIndex: 1,
+    padding: '10px',
+  },
+  cell: {
+    textAlign: 'center',
+    padding: '5px',
+    wordWrap: 'break-word',
+  },
+  card: {
+    marginBottom: '10px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(18, 1fr)',
+    gap: '10px',
+    alignItems: 'center',
+    color: 'white',
+    padding: '10px',
+  },
+  cardHovered: {
+    backgroundColor: '#3949ab',
+  },
+  cardDefault: {
+    backgroundColor: '#3f51b5',
+  },
+  button: {
+    color: 'white',
+  },
+});
 
 function MSS() {
+  const classes = useStyles();
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [provinceFilter, setProvinceFilter] = useState('');
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const updateFormRef = useRef(null);
 
-  useEffect(() => {
+  
+  const [rowData, setRowData] = useState(null);
+  const [showUpdateMdo, setShowUpdateMdo] = useState(false);
+
+  const fetchData = () => {
     fetch('http://localhost:5000/mss')
       .then(response => response.json())
       .then(data => {
         setData(data);
-        console.log(data); // Check if data is fetched correctly
+        setFilteredData(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []); // Empty dependency array to fetch data only once when the component mounts
+  };
 
-  console.log("Rendering with data:", data); // Check if component re-renders with data
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (updateFormRef.current && !updateFormRef.current.contains(event.target)) {
+        setShowUpdateMdo(false);
+      }
+    }
+
+    if (showUpdateMdo) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUpdateMdo]);
+
+  
+  const handleCloseUpdateMdo = () => {
+    setShowUpdateMdo(false);
+  };
+
+  const handleUpdate = (row) => {
+    setRowData(row);
+    setShowUpdateMdo(true);
+  };
+
+  const handleFilterChange = (e) => {
+    setProvinceFilter(e.target.value);
+  };
+
+  useEffect(() => {
+    const filtered = data.filter(item =>
+      item.nom_objet.toLowerCase().includes(provinceFilter.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [provinceFilter, data]);
+
+  const headers = [
+    'Province', 'Rougeole', 'Coqueluche', 'Tetanos', 'Men. Men.', 'Typhoide', 'Trachome',
+    'Diphterie', 'Bilharz.', 'Tuberc.', 'Lepre', 'Urethrites', 'Syphilis', 'Rage',
+    'Toxi Inf.', 'Palud. Imp.', 'Syn. Grippal', 'Update'
+  ];
 
   return (
-    <div style={{ backgroundColor: '#1a237e', padding: '20px' }}>
-      {data.length === 0 ? (
-        <p>Loading...</p>
-      ) : (
-        <table style={{ borderCollapse: 'collapse', margin: '0 auto', backgroundColor: '#1a237e' }}>
-          <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
-            <tr>
-              <th colSpan="23" style={{ backgroundColor: '#333', color: 'white', padding: '10px' }}>MSS</th>
-            </tr>
-            <tr style={{ backgroundColor: '#ddd' }}>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Province</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Rougeole</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Coqueluche</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Tetanos</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Meningite a meningocoque</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Typhoide</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Trachome</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Diphterie</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Bilharziose</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Tuberculose</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Lepre</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Urethrites</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Syphilis</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Rage</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Toxi_infections_alimentaires_collectives</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderRight: '2px solid white' }}>Paludisme_importe</th>
-      <th style={{ fontSize: 'small', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Syndrome_grippal_17_18</th>
-    </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index}>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.nom_objet}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Rougeole}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Coqueluche}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Tetanos}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Meningite_a_meningocoque}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Typhoide}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Trachome}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Diphterie}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Bilharziose}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Tuberculose}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Lepre}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Urethrites}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Syphilis}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Rage}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Toxi_infections_alimentaires_collectives}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Paludisme_importe}</CardContent>
-                  </Card>
-                </td>
-                {/* Add similar td elements for other columns with corresponding row data */}
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Syndrome_grippal_17_18}</CardContent>
-                  </Card>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <div>MSS</div>
+        <TextField 
+          label="Filter by Province"
+          variant="outlined"
+          size="small"
+          value={provinceFilter}
+          onChange={handleFilterChange}
+          className={classes.filter}
+        />
+      </div>
+      <div className={classes.table}>
+        <div className={classes.headerRow}>
+          {headers.map((header, index) => (
+            <div key={index} className={classes.cell}>{header}</div>
+          ))}
+        </div>
+        {filteredData.map((row, index) => (
+          <Card 
+            key={index} 
+            onMouseEnter={() => setHoverIndex(index)}
+            onMouseLeave={() => setHoverIndex(null)}
+            className={`${classes.card} ${hoverIndex === index ? classes.cardHovered : classes.cardDefault}`}
+          >
+            <CardContent className={classes.cell}>{row.nom_objet || 'N/A'}</CardContent>
+            <CardContent className={classes.cell}>{row.Rougeole || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Coqueluche || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Tetanos || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Meningite_a_meningocoque || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Typhoide || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Trachome || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Diphterie || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Bilharziose || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Tuberculose || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Lepre || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Urethrites || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Syphilis || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Rage || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Toxi_infections_alimentaires_collectives || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Paludisme_importe || 0}</CardContent>
+            <CardContent className={classes.cell}>{row.Syndrome_grippal_17_18 || 0}</CardContent>
+            <CardContent className={classes.cell}>
+              <IconButton
+                onClick={() => handleUpdate(row)}
+                className={classes.button}
+              >
+                <RefreshIcon />
+              </IconButton>
+            </CardContent>
+          </Card>
+        ))}
+        {showUpdateMdo && (
+        <div
+          ref={updateFormRef}
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            padding: '20px',
+            zIndex: 9999
+          }}
+        >
+          <Updatemss rowData={rowData} onUpdate={handleUpdate} onClose={handleCloseUpdateMdo} />
+        </div>
       )}
+      </div>
     </div>
   );
 }

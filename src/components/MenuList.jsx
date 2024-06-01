@@ -25,7 +25,7 @@ const MenuList = ({ setShowDashboard, setDashboardUrl }) => {
     // };
     const handleClick = () => {
         window.open("src/assets/PA.jpg", "_blank");
-      };
+    };
 
     //
     return (
@@ -44,7 +44,7 @@ const MenuList = ({ setShowDashboard, setDashboardUrl }) => {
 
             <Menu.SubMenu key="IVS" icon={<CheckCircleTwoTone />} title="Indice de Vulnérabilité Sanitaire">
 
-                <Menu.Item key="Cartographie" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/139'); }} >
+                <Menu.Item key="Cartographie" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/139'); }} >
                     Cartographie
                 </Menu.Item>
             </Menu.SubMenu>
@@ -52,47 +52,47 @@ const MenuList = ({ setShowDashboard, setDashboardUrl }) => {
 
 
             <Menu.SubMenu key="expostion" icon={<CheckCircleTwoTone />} title="Exposition">
-                <Menu.Item key="Handicap" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/165'); }} >
+                <Menu.Item key="Handicap" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/165'); }} >
                     Handicap
                 </Menu.Item>
-                <Menu.Item key="VEF" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/173'); }} >
-                Violence à l'égard des femmes
+                <Menu.Item key="VEF" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/173'); }} >
+                    Violence à l'égard des femmes
                 </Menu.Item>
-                <Menu.Item key="VEE" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/230'); }}>
-                Violence à l'égard des enfants
+                <Menu.Item key="VEE" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/230'); }}>
+                    Violence à l'égard des enfants
                 </Menu.Item>
                 <Menu.SubMenu key="MC" title="Maladies chroniques" >
-                    <Menu.Item Key="Hyper" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/264'); }} >Hypertension </Menu.Item>
-                    <Menu.Item Key="Diab" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/291'); }} > Diabete </Menu.Item>
+                    <Menu.Item Key="Hyper" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/264'); }} >Hypertension </Menu.Item>
+                    <Menu.Item Key="Diab" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/291'); }} > Diabete </Menu.Item>
                 </Menu.SubMenu>
-                <Menu.Item key="MDO" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/353'); }}>
-                Maladies à déclaration obligatoire
+                <Menu.Item key="MDO" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/353'); }}>
+                    Maladies à déclaration obligatoire
                 </Menu.Item>
-                <Menu.Item key="MSS" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/361'); }}>
-                Maladies sous surveillance
+                <Menu.Item key="MSS" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/361'); }}>
+                    Maladies sous surveillance
                 </Menu.Item>
-                <Menu.Item key="PA" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/719'); }} >
-                Personnes âgées
+                <Menu.Item key="PA" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/719'); }} >
+                    Personnes âgées
                 </Menu.Item>
 
                 <Menu.Item key="PA2" onClick={handleClick}>
-  Peronnes âgées section 2
-</Menu.Item>
+                    Peronnes âgées section 2
+                </Menu.Item>
                 <Menu.Item key="SF" >
-                Surveillance aux frontières
+                    Surveillance aux frontières
                 </Menu.Item>
                 <Menu.Item key="VE" >
-                Veille épidémiologique
-</Menu.Item>
+                    Veille épidémiologique
+                </Menu.Item>
             </Menu.SubMenu>
 
 
             <Menu.SubMenu key="sensibilite" icon={<CheckCircleTwoTone />} title="Sensibilité">
 
-                <Menu.Item key="Population" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/147'); }}>
+                <Menu.Item key="Population" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/147'); }}>
                     Population/Densité
                 </Menu.Item>
-                <Menu.Item key="IPM" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/155'); }}>
+                <Menu.Item key="IPM" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/155'); }}>
                     Indice de Pauvreté Multidimensionelle
                 </Menu.Item>
             </Menu.SubMenu>
@@ -100,21 +100,21 @@ const MenuList = ({ setShowDashboard, setDashboardUrl }) => {
 
 
             <Menu.SubMenu key="CA" icon={<CheckCircleTwoTone />} title="Capacité d'Adaptation">
-                <Menu.Item key="RSEEB" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/382'); }} >
-                RESSP
+                <Menu.Item key="RSEEB" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/382'); }} >
+                    RESSP
                 </Menu.Item>
-                <Menu.Item key="RH" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/390'); }}  >
+                <Menu.Item key="RH" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/390'); }}  >
                     RH
                 </Menu.Item>
-                <Menu.Item key="RISUM" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/399'); }} >
+                <Menu.Item key="RISUM" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/399'); }} >
                     RISUM
                 </Menu.Item>
-                <Menu.Item key="REMS" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/dashboard/407'); }}  >
+                <Menu.Item key="REMS" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/407'); }}  >
                     REMS
                 </Menu.Item>
 
             </Menu.SubMenu>
-            <Menu.Item key="Filtre" icon={<CheckCircleTwoTone />} title="Filtre" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8087/#/context/Filtrage'); }} >
+            <Menu.Item key="Filtre" icon={<CheckCircleTwoTone />} title="Filtre" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/context/Filtrage'); }} >
 
                 Filtre
             </Menu.Item>
@@ -150,7 +150,7 @@ const MenuList = ({ setShowDashboard, setDashboardUrl }) => {
         </Menu>
 
 
-    
+
     );
 }
 

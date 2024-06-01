@@ -1,0 +1,2 @@
+//"dev": "concurrently \"cd C:\\Users\\Admin\\Downloads\\MapStore2-master\\MapStore2-master && npm start\" \"vite\"",
+    "dev": "concurrently \"npm run fe:start --prefix C:\\Users\\Admin\\Downloads\\MapStore2-master\\MapStore2-master\" \"vite\"",

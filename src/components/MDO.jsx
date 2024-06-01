@@ -1,209 +1,144 @@
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import React, { useEffect, useState } from 'react';
+import TextField from '@material-ui/core/TextField';
+import UpdateIcon from '@material-ui/icons/Update';
+import React, { useEffect, useRef, useState } from 'react';
+import Updatemdo from './Updatemdo';
 
 function MDO() {
   const [data, setData] = useState([]);
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const updateFormRef = useRef(null);
+
+  const [rowData, setRowData] = useState(null);
+  const [showUpdateMdo, setShowUpdateMdo] = useState(false);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:5000/mdo')
       .then(response => response.json())
       .then(data => {
         setData(data);
-        console.log(data); // Check if data is fetched correctly
+        console.log(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []); // Empty dependency array to fetch data only once when the component mounts
+  }, []);
 
-  console.log("Rendering with data:", data); // Check if component re-renders with data
+  const handleUpdate = (row) => {
+    setRowData(row);
+    setShowUpdateMdo(true);
+  };
+
+  const handleCloseUpdateMdo = () => {
+    setShowUpdateMdo(false);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  const filteredData = data.filter(row => 
+    row.nom_objet.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (updateFormRef.current && !updateFormRef.current.contains(event.target)) {
+        setShowUpdateMdo(false);
+      }
+    }
+
+    if (showUpdateMdo) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUpdateMdo]);
 
   return (
     <div style={{ backgroundColor: '#1a237e', padding: '20px' }}>
-      {data.length === 0 ? (
-        <p>Loading...</p>
-      ) : (
-        <table style={{ borderCollapse: 'collapse', margin: '0 auto', backgroundColor: '#1a237e' }}>
-          <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
-            <tr>
-              <th colSpan="11" style={{ backgroundColor: '#333', color: 'white', padding: '10px' }}>MDO</th>
-            </tr>
-            <tr style={{ backgroundColor: '#ddd' }}>
-  <th style={{ fontSize: 'small' }}>Province</th>
-  <th style={{ fontSize: 'small' }}>RAA</th>
-  <th style={{ fontSize: 'small' }}>Charbon humain</th>
-  <th style={{ fontSize: 'small' }}>Hepatite virale</th>
-  <th style={{ fontSize: 'small' }}>Brucellose</th>
-  <th style={{ fontSize: 'small' }}>Leptospirose</th>
-  <th style={{ fontSize: 'small' }}>Leishmanioses</th>
-  <th style={{ fontSize: 'small' }}>Gastro-Enterites aigues</th>
-  <th style={{ fontSize: 'small' }}>Conjonctivite Nouveau-Ne</th>
-  <th style={{ fontSize: 'small' }}>Hydatidose</th>
-  <th style={{ fontSize: 'small' }}>Leishmaniose viscerale</th>
-</tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index}>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.nom_objet}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.RAA}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Charbon_humain}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Hepatite_virale}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Brucellose}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Leptospirose}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Leishmanioses}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Gastro_Enterites_aigues}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Conjonctivite_Nouveau_Ne}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Hydatidose}</CardContent>
-                  </Card>
-                </td>
-                <td style={{ width: '10vw', height: '10vw', padding: 0 }}>
-                  <Card 
-                    style={{ 
-                      margin: '5px', 
-                      backgroundColor: 'gray', 
-                      transition: 'background-color 0.3s',
-                      '&:hover': {
-                        backgroundColor: '#00008b' // Dark blue color on hover
-                      }
-                    }}
-                  >
-                    <CardContent style={{ textAlign: 'center' }}>{row.Leishmaniose_viscerale}</CardContent>
-                  </Card>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '10px' }}>
+        <div style={{ color: 'white', fontSize: '20px', fontWeight: 'bold' }}>MDO</div>
+        <TextField 
+          label="Filter by Province"
+          variant="outlined"
+          size="small"
+          value={filter}
+          onChange={handleFilterChange}
+          style={{ backgroundColor: 'white', borderRadius: '5px' }}
+        />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'white', marginBottom: '10px' }}>
+        <div>Province</div>
+        <div>RAA</div>
+        <div>Charbon humain</div>
+        <div>Hepatite virale</div>
+        <div>Brucellose</div>
+        <div>Leptospirose</div>
+        <div>Leishmanioses</div>
+        <div>Gastro-Enterites aigues</div>
+        <div>Conjonctivite Nouveau-Ne</div>
+        <div>Hydatidose</div>
+        <div>Leishmaniose viscerale</div>
+        <div>Update</div>
+      </div>
+      {filteredData.map((row, index) => (
+        <Card 
+          key={index} 
+          onMouseEnter={() => setHoverIndex(index)}
+          onMouseLeave={() => setHoverIndex(null)}
+          style={{ 
+            marginBottom: '10px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            backgroundColor: hoverIndex === index ? '#3949ab' : '#3f51b5',
+            color: 'white',
+            padding: '10px',
+          }}
+        >
+          <CardContent style={{ flex: '1' }}>{row.nom_objet}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.RAA}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Charbon_humain}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Hepatite_virale}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Brucellose}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Leptospirose}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Leishmanioses}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Gastro_Enterites_aigues}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Conjonctivite_Nouveau_Ne}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Hydatidose}</CardContent>
+          <CardContent style={{ flex: '1' }}>{row.Leishmaniose_viscerale}</CardContent>
+          <Button 
+            variant="contained"
+            color="primary"
+            onClick={() => handleUpdate(row)}
+          >
+            <UpdateIcon />
+          </Button>
+        </Card>
+      ))}
+      {showUpdateMdo && (
+        <div
+          ref={updateFormRef}
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            padding: '20px',
+            zIndex: 9999
+          }}
+        >
+          <Updatemdo rowData={rowData} onUpdate={handleUpdate} onClose={handleCloseUpdateMdo} />
+        </div>
       )}
     </div>
   );
