@@ -1,156 +1,171 @@
-import { CheckCircleTwoTone, LeftOutlined } from '@ant-design/icons';
+import { CheckCircleTwoTone } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
-const MenuList = ({ setShowDashboard, setDashboardUrl }) => {
 
-
-    // const [isModalVisible, setIsModalVisible] = useState(false);
-
-    // const showModal = () => {
-    //     setIsModalVisible(true);
-    // };
-
-    // const handleOk = () => {
-    //     setIsModalVisible(false);
-    // };
-
-    // const handleCancel = () => {
-    //     setIsModalVisible(false);
-    // };
-
-    // const [showImages, setShowImages] = useState(false);
-
-    // const handleClick = () => {
-    //     setShowImages(true);
-    // };
+const MenuList = ({ setDashboardUrl }) => {
     const handleClick = () => {
         window.open("src/assets/PA.jpg", "_blank");
     };
 
-    //
+    const items = [
+        {
+            key: 'IVS',
+            icon: <CheckCircleTwoTone />,
+            label: 'Indice de Vulnérabilité Sanitaire',
+            children: [
+                {
+                    key: 'Cartographie',
+                    label: 'Cartographie',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/139')
+                }
+            ]
+        },
+        {
+            key: 'exposition',
+            icon: <CheckCircleTwoTone />,
+            label: 'Exposition',
+            children: [
+                {
+                    key: 'Handicap',
+                    label: 'Handicap',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/165')
+                },
+                {
+                    key: 'VEF',
+                    label: "Violence à l'égard des femmes",
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/173')
+                },
+                {
+                    key: 'VEE',
+                    label: "Violence à l'égard des enfants",
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/230')
+                },
+                {
+                    key: 'MC',
+                    label: 'Maladies chroniques',
+                    children: [
+                        {
+                            key: 'Hyper',
+                            label: 'Hypertension',
+                            onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/264')
+                        },
+                        {
+                            key: 'Diab',
+                            label: 'Diabete',
+                            onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/291')
+                        }
+                    ]
+                },
+                {
+                    key: 'MDO',
+                    label: 'Maladies à déclaration obligatoire',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/353')
+                },
+                {
+                    key: 'MSS',
+                    label: 'Maladies sous surveillance',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/361')
+                },
+                {
+                    key: 'PA',
+                    label: 'Personnes âgées',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/719')
+                },
+                {
+                    key: 'PA2',
+                    label: 'Personnes âgées section 2',
+                    onClick: handleClick
+                },
+                {
+                    key: 'SF',
+                    label: 'Surveillance aux frontières'
+                },
+                {
+                    key: 'VE',
+                    label: 'Veille épidémiologique'
+                }
+            ]
+        },
+        {
+            key: 'sensibilite',
+            icon: <CheckCircleTwoTone />,
+            label: 'Sensibilité',
+            children: [
+                {
+                    key: 'Population',
+                    label: 'Population/Densité',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/147')
+                },
+                {
+                    key: 'IPM',
+                    label: 'Indice de Pauvreté Multidimensionelle',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/155')
+                }
+            ]
+        },
+        {
+            key: 'CA',
+            icon: <CheckCircleTwoTone />,
+            label: "Capacité d'Adaptation",
+            children: [
+                {
+                    key: 'RSEEB',
+                    label: 'RESSP',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/382')
+                },
+                {
+                    key: 'RH',
+                    label: 'RH',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/390')
+                },
+                {
+                    key: 'RISUM',
+                    label: 'RISUM',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/399')
+                },
+                {
+                    key: 'REMS',
+                    label: 'REMS',
+                    onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/407')
+                }
+            ]
+        },
+        {
+            key: 'Filtre',
+            icon: <CheckCircleTwoTone />,
+            label: 'Filtre',
+            onClick: () => setDashboardUrl('http://localhost:8089/mapstore/#/context/Filtrage')
+        },
+        {
+            key: 'RS',
+            icon: <CheckCircleTwoTone />,
+            label: 'Régions sanitaires',
+            children: [
+                {
+                    key: 'BK',
+                    label: 'Béni Mellal-Khénifra',
+                    children: [
+                        { key: 'sub1', label: 'Profil démographique' },
+                        { key: 'sub2', label: 'Profil environnemental' },
+                        { key: 'sub3', label: 'Profil géographique' },
+                        { key: 'sub4', label: 'Profil capacité sanitaire' },
+                        { key: 'sub5', label: 'Profil épidémiologique' },
+                        { key: 'sub6', label: 'Profil gouvernance' },
+                        { key: 'sub7', label: 'Profil technologique' },
+                        { key: 'sub8', label: 'Profil culturel' },
+                        { key: 'sub9', label: 'Profil de résilience' }
+                    ]
+                }
+            ]
+        },
+        {
+            key: 'AS',
+            icon: <CheckCircleTwoTone />,
+            label: 'Alerte Saniataire'
+        }
+    ];
+
     return (
-
-        <Menu theme='dark' mode="inline"
-            style={{ height: '100vh', overflow: 'auto' }} className='menu-bar'>
-            <div style={{ padding: '10px' }}>
-                <Link to="/home">
-                    <LeftOutlined style={{ color: '#fff', fontSize: '20px' }} />
-                </Link>
-            </div>
-
-
-
-
-
-            <Menu.SubMenu key="IVS" icon={<CheckCircleTwoTone />} title="Indice de Vulnérabilité Sanitaire">
-
-                <Menu.Item key="Cartographie" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/139'); }} >
-                    Cartographie
-                </Menu.Item>
-            </Menu.SubMenu>
-
-
-
-            <Menu.SubMenu key="expostion" icon={<CheckCircleTwoTone />} title="Exposition">
-                <Menu.Item key="Handicap" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/165'); }} >
-                    Handicap
-                </Menu.Item>
-                <Menu.Item key="VEF" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/173'); }} >
-                    Violence à l'égard des femmes
-                </Menu.Item>
-                <Menu.Item key="VEE" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/230'); }}>
-                    Violence à l'égard des enfants
-                </Menu.Item>
-                <Menu.SubMenu key="MC" title="Maladies chroniques" >
-                    <Menu.Item Key="Hyper" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/264'); }} >Hypertension </Menu.Item>
-                    <Menu.Item Key="Diab" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/291'); }} > Diabete </Menu.Item>
-                </Menu.SubMenu>
-                <Menu.Item key="MDO" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/353'); }}>
-                    Maladies à déclaration obligatoire
-                </Menu.Item>
-                <Menu.Item key="MSS" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/361'); }}>
-                    Maladies sous surveillance
-                </Menu.Item>
-                <Menu.Item key="PA" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/719'); }} >
-                    Personnes âgées
-                </Menu.Item>
-
-                <Menu.Item key="PA2" onClick={handleClick}>
-                    Peronnes âgées section 2
-                </Menu.Item>
-                <Menu.Item key="SF" >
-                    Surveillance aux frontières
-                </Menu.Item>
-                <Menu.Item key="VE" >
-                    Veille épidémiologique
-                </Menu.Item>
-            </Menu.SubMenu>
-
-
-            <Menu.SubMenu key="sensibilite" icon={<CheckCircleTwoTone />} title="Sensibilité">
-
-                <Menu.Item key="Population" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/147'); }}>
-                    Population/Densité
-                </Menu.Item>
-                <Menu.Item key="IPM" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/155'); }}>
-                    Indice de Pauvreté Multidimensionelle
-                </Menu.Item>
-            </Menu.SubMenu>
-
-
-
-            <Menu.SubMenu key="CA" icon={<CheckCircleTwoTone />} title="Capacité d'Adaptation">
-                <Menu.Item key="RSEEB" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/382'); }} >
-                    RESSP
-                </Menu.Item>
-                <Menu.Item key="RH" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/390'); }}  >
-                    RH
-                </Menu.Item>
-                <Menu.Item key="RISUM" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/399'); }} >
-                    RISUM
-                </Menu.Item>
-                <Menu.Item key="REMS" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/dashboard/407'); }}  >
-                    REMS
-                </Menu.Item>
-
-            </Menu.SubMenu>
-            <Menu.Item key="Filtre" icon={<CheckCircleTwoTone />} title="Filtre" onClick={() => { setShowDashboard(true); setDashboardUrl('http://localhost:8089/mapstore/#/context/Filtrage'); }} >
-
-                Filtre
-            </Menu.Item>
-
-
-            <Menu.SubMenu key="RS" icon={<CheckCircleTwoTone />} title="Régions sanitaires">
-
-                <Menu.SubMenu key="BK" title="Béni Mellal-Khénifra">
-
-
-                    <Menu.Item key="sub1">Profil démographique </Menu.Item>
-                    <Menu.Item key="sub2">Profil environnemental</Menu.Item>
-                    <Menu.Item key="sub3">Profil géographique</Menu.Item>
-                    <Menu.Item key="sub4">Profil capacité sanitaire</Menu.Item>
-                    <Menu.Item key="sub5">Profil épidémiologique</Menu.Item>
-                    <Menu.Item key="sub6">Profil gouvernance </Menu.Item>
-                    <Menu.Item key="sub7">Profil technologique </Menu.Item>
-                    <Menu.Item key="sub8">Profil culturel </Menu.Item>
-                    <Menu.Item key="sub9">Profil de résilience </Menu.Item>
-
-                </Menu.SubMenu>
-
-
-            </Menu.SubMenu>
-
-
-
-            <Menu.SubMenu key="AS" icon={<CheckCircleTwoTone />} title="Alerte Saniataire ">
-
-
-
-            </Menu.SubMenu>
-        </Menu>
-
-
-
+        <Menu theme='dark' mode="inline" style={{ height: '100vh', overflow: 'auto' }} className='menu-bar' items={items} />
     );
 }
 

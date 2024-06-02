@@ -68,7 +68,7 @@ const Alert = () => {
     <div style={{ display: 'flex' }}>
       <Drawer variant="permanent" classes={{ paper: classes.sidebar }}>
         <div>
-          <Link to="/home" className={classes.backLink}>
+          <Link to="/Landing" className={classes.backLink}>
             <LeftOutlined />
           </Link>
         </div>

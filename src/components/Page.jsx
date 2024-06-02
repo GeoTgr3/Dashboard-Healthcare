@@ -1,8 +1,34 @@
-import React from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
 import { FaHeartbeat, FaPhoneAlt, FaStethoscope } from 'react-icons/fa';
-import videoFile from '../assets/video.mp4'; // Import the video file
+import { useNavigate } from 'react-router-dom';
+import videoFile from '../assets/video.mp4';
+import { auth } from '../firebaseConfig';
 
 const Page = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toggleModal(); // Close modal on successful login
+      navigate('/landing'); // Navigate to the Landing page
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div style={styles.homepage}>
       <header style={styles.header}>
@@ -18,6 +44,7 @@ const Page = () => {
             <li style={styles.navItem}><a href="#contact" style={styles.navLink}>Contact</a></li>
           </ul>
         </nav>
+        <button style={styles.loginButton} onClick={toggleModal}>Login</button>
       </header>
       <div style={styles.videoWrapper}>
         <video autoPlay loop muted style={styles.videoBackground}>
@@ -66,6 +93,42 @@ const Page = () => {
       <footer style={styles.footer}>
         <p>&copy; {new Date().getFullYear()} Healthcare. All rights reserved.</p>
       </footer>
+      {isModalOpen && (
+        <div style={styles.modalOverlay}>
+          <div style={styles.modalContent}>
+            <h2>Login</h2>
+            <form style={styles.form} onSubmit={handleLogin}>
+              <div style={styles.formGroup}>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  style={styles.input}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div style={styles.formGroup}>
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  style={styles.input}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              {error && <p style={styles.error}>{error}</p>}
+              <button type="submit" style={styles.submitButton}>Login</button>
+            </form>
+            <button style={styles.closeButton} onClick={toggleModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -74,7 +137,7 @@ const styles = {
   homepage: {
     fontFamily: 'Arial, sans-serif',
     lineHeight: '1.6',
-    color: '#fff', // Set the text color to white
+    color: '#fff',
     textAlign: 'center',
     position: 'relative',
     minHeight: '100vh',
@@ -99,6 +162,7 @@ const styles = {
   },
   nav: {
     display: 'flex',
+    flex: '1',
   },
   navList: {
     listStyle: 'none',
@@ -110,6 +174,14 @@ const styles = {
   navLink: {
     color: '#fff',
     textDecoration: 'none',
+  },
+  loginButton: {
+    backgroundColor: '#28A745',
+    color: '#fff',
+    border: 'none',
+    padding: '0.5rem 1rem',
+    borderRadius: '4px',
+    cursor: 'pointer',
   },
   videoWrapper: {
     position: 'fixed',
@@ -131,7 +203,7 @@ const styles = {
     padding: '100px 1rem 2rem 1rem',
   },
   textOverlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background for text
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: '1rem',
     borderRadius: '8px',
     display: 'inline-block',
@@ -149,7 +221,7 @@ const styles = {
     textAlign: 'center',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     width: '300px',
-    color: '#333', // Ensure text color inside services is dark for readability
+    color: '#333',
   },
   serviceTitle: {
     marginTop: '1rem',
@@ -165,6 +237,62 @@ const styles = {
     position: 'absolute',
     bottom: '0',
     width: '100%',
+  },
+  modalOverlay: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: '100',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: '2rem',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    textAlign: 'center',
+    width: '90%',
+    maxWidth: '400px',
+    color: '#333',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  formGroup: {
+    marginBottom: '1rem',
+  },
+  input: {
+    width: '100%',
+    padding: '0.5rem',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  },
+  submitButton: {
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    border: 'none',
+    padding: '0.5rem 1rem',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  closeButton: {
+    backgroundColor: '#ccc',
+    color: '#333',
+    border: 'none',
+    padding: '0.5rem 1rem',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    marginTop: '1rem',
+  },
+  error: {
+    color: 'red',
+    marginBottom: '1rem',
   },
 };
 
