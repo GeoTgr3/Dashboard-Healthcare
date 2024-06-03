@@ -15,20 +15,23 @@ import Reference from "./Reference";
 const useStyles = makeStyles((theme) => ({
   sidebar: {
     width: 250,
-    backgroundColor: '#0b2447', // Dark blue background
+    backgroundColor: '#001529', // Dark blue background
     color: 'white',
     height: '100vh',
   },
   mainContent: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#f4f4f4', // Light grey background
+    backgroundColor: '#001529', // Dark blue background
     marginLeft: 250, // Ensures the content is next to the sidebar
+    minHeight: '100vh', // Ensure it covers the full height
+    display: 'flex',
+    flexDirection: 'column',
   },
   listItem: {
     color: 'white',
     '&:hover': {
-      backgroundColor: '#1d4e89', // Slightly lighter blue on hover
+      backgroundColor: 'white', // Slightly lighter blue on hover
     },
   },
   listItemIcon: {
@@ -72,7 +75,7 @@ const Alert = () => {
             <LeftOutlined />
           </Link>
         </div>
-        <List>
+        <List style={{ paddingTop :'150px'}}>
           <ListItem button key="Dashboard" onClick={() => handleComponentChange('Dashboard')} className={classes.listItem}>
             <ListItemIcon className={classes.listItemIcon}><DashboardIcon /></ListItemIcon>
             <ListItemText primary="Dashboard" />

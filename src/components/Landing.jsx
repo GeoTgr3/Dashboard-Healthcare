@@ -2,7 +2,7 @@
 
 import { signOut } from "firebase/auth";
 import React from 'react';
-import { FaBell, FaTachometerAlt } from 'react-icons/fa';
+import { FaBell, FaHeartbeat, FaTachometerAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebaseConfig';
 const Landing = () => {
@@ -91,8 +91,8 @@ const Landing = () => {
   return (
     <div style={styles.landingContainer}>
       <header style={styles.landingHeader}>
-        <div style={styles.navbar}>
-          <div style={styles.logo}>Healthcare</div>
+      <div style={styles.logo}>
+          <FaHeartbeat size={32} color="green" />
         </div>
         <button style={styles.logoutButton} onClick={handleLogout}>Logout</button>
       </header>

@@ -33,8 +33,7 @@ const Page = () => {
     <div style={styles.homepage}>
       <header style={styles.header}>
         <div style={styles.logo}>
-          <FaHeartbeat size={32} color="#007BFF" />
-          <h1 style={styles.logoText}>Healthcare</h1>
+          <FaHeartbeat size={32} color="green" />
         </div>
         <nav style={styles.nav}>
           <ul style={styles.navList}>
@@ -55,23 +54,23 @@ const Page = () => {
       <main style={styles.mainContent}>
         <section id="home" style={styles.section}>
           <div style={styles.textOverlay}>
-            <h2>Welcome to Our Healthcare Service</h2>
-            <p>Providing top-notch healthcare solutions for your well-being.</p>
+            <h2>Bienvenue dans notre service de santé</h2>
+            <p>Fournir des solutions de santé de premier ordre pour votre bien-être.</p>
           </div>
         </section>
         <section id="services" style={styles.section}>
           <div style={styles.textOverlay}>
-            <h2>Our Services</h2>
+            <h2>Services</h2>
             <div style={styles.services}>
               <div style={styles.service}>
                 <FaStethoscope size={48} color="#28A745" />
-                <h3 style={styles.serviceTitle}>General Checkup</h3>
-                <p>Regular health exams can help find problems before they start.</p>
+                <h3 style={styles.serviceTitle}>Dashboard</h3>
+                <p>Indice de Vulnérabilité Sanitaire</p>
               </div>
               <div style={styles.service}>
                 <FaHeartbeat size={48} color="#28A745" />
-                <h3 style={styles.serviceTitle}>Cardiology</h3>
-                <p>Expert cardiology services to keep your heart healthy.</p>
+                <h3 style={styles.serviceTitle}>Alert</h3>
+                <p>Plusieurs Indicateurs sur l'alerte Sanitaire.</p>
               </div>
             </div>
           </div>
@@ -79,7 +78,7 @@ const Page = () => {
         <section id="about" style={styles.section}>
           <div style={styles.textOverlay}>
             <h2>About Us</h2>
-            <p>We are a dedicated team of healthcare professionals committed to providing the best medical care.</p>
+            <p>Notre plateforme offre des KPI importants pour les   professionnels de la santé, engagée à fournir les meilleurs services médicaux.</p>
           </div>
         </section>
         <section id="contact" style={styles.section}>

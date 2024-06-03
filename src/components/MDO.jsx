@@ -75,19 +75,20 @@ function MDO() {
           style={{ backgroundColor: 'white', borderRadius: '5px' }}
         />
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'white', marginBottom: '10px' }}>
-        <div>Province</div>
-        <div>RAA</div>
-        <div>Charbon humain</div>
-        <div>Hepatite virale</div>
-        <div>Brucellose</div>
-        <div>Leptospirose</div>
-        <div>Leishmanioses</div>
-        <div>Gastro-Enterites aigues</div>
-        <div>Conjonctivite Nouveau-Ne</div>
-        <div>Hydatidose</div>
-        <div>Leishmaniose viscerale</div>
-        <div>Update</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'white', marginBottom: '10px' , position:'sticky' , zIndex : 1 , top : 0 , backgroundColor: '#1a237e'}}>
+      <div style={{ flex: '1', padding: '0 10px', whiteSpace: 'normal', width: '80px' }}>Province</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>RAA</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Charbon<br />humain</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Hepatite<br />virale</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Brucellose</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Lepto-<br />spirose</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Leishm-<br />anioses</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Gastro-<br />Enterites<br />aigues</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}><br />Conjonctivite<br />Nouveau-Ne</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Hydatidose</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Leish-<br />maniose<br />viscerale</div>
+        <div style={{ flex: '1', padding: '0 7px', whiteSpace: 'normal', width: '80px' }}>Update</div>
+
       </div>
       {filteredData.map((row, index) => (
         <Card 
@@ -132,7 +133,7 @@ function MDO() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            backgroundColor: 'white',
+            backgroundColor: '#001529',
             padding: '20px',
             zIndex: 9999
           }}

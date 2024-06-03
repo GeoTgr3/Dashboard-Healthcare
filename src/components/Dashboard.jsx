@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 const useStyles = makeStyles({
   container: {
-    backgroundColor: '#1a237e',
+    backgroundColor: '#001529',
     padding: '20px',
     color: 'white',
     minHeight: '100vh',
@@ -170,11 +170,11 @@ function Dashboard() {
 
   return (
     <div className={classes.container}>
-      <div className={classes.header}>
+      {/* <div className={classes.header}>
         Dashboard
-      </div>
+      </div> */}
 
-      <Tabs value={tabIndex} onChange={handleTabChange} indicatorColor="primary" textColor="primary">
+      <Tabs value={tabIndex} onChange={handleTabChange} indicatorColor="primary" textColor="white" centered>
         <Tab label="MSS" />
         <Tab label="MDO" />
       </Tabs>
@@ -191,7 +191,7 @@ function Dashboard() {
         {tabIndex === 1 && (
           <div className={classes.tabContent}>
             <div className={classes.alertsContainer}>
-              <Typography className={classes.sectionHeader}>MDO Alerts</Typography>
+              <Typography className={classes.sectionHeader} style={{marginRight:'800px'}}>MDO Alerts</Typography>
               {renderAlerts(mdoAlerts)}
             </div>
           </div>

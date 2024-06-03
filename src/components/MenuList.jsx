@@ -1,5 +1,7 @@
-import { CheckCircleTwoTone } from '@ant-design/icons';
+import { CheckCircleTwoTone, LeftOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MenuList = ({ setDashboardUrl }) => {
     const handleClick = () => {
@@ -164,8 +166,26 @@ const MenuList = ({ setDashboardUrl }) => {
         }
     ];
 
+    const menuWrapperStyle = {
+        position: 'relative',
+    };
+
+    const backLinkStyle = {
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        zIndex: 10,
+    };
+
     return (
-        <Menu theme='dark' mode="inline" style={{ height: '100vh', overflow: 'auto' }} className='menu-bar' items={items} />
+        <div style={menuWrapperStyle}>
+            <div style={backLinkStyle}>
+                <Link to="/Landing">
+                    <LeftOutlined style={{ color: 'white', fontSize: '24px' }} />
+                </Link>
+            </div>
+            <Menu theme='dark' mode="inline" style={{ height: '100vh', overflow: 'auto' }} className='menu-bar' items={items} />
+        </div>
     );
 }
 

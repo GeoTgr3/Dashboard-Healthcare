@@ -202,7 +202,7 @@ function MSS() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            backgroundColor: 'white',
+            backgroundColor: '#001529',
             padding: '20px',
             zIndex: 9999
           }}
